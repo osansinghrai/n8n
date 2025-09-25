@@ -12,6 +12,7 @@
 /build
 
 .env
+/src/controller/googlesheet/service-account.json
 
 # misc
 .DS_Store

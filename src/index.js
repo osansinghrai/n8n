@@ -1,5 +1,6 @@
 const express = require('express');
-const apiRoutes = require('./route/api.routes');
+const apiRoutes = require('./api.routes');
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
