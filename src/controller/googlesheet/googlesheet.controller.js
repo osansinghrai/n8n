@@ -6,31 +6,38 @@ const googleSheetService = require("../../service/googlesheet.service");
 const googleSheetController = async (req, res) => {
     try {
         const data = await req.body;
-        console.log("Request Body:", data); 
-        const auth = new google.auth.GoogleAuth({
-            keyFile: path.join(__dirname, "service-account.json"), // credential file name
-            scopes: [
-                process.env.GoogleApiCreateManage,
-                process.env.GoogleApiReadWrite,
-                process.env.GoogleApiPermission 
-            ]
-        })
-        const client = await auth.getClient();
-        console.log("Service Account Email:", client.email);
+        const { topic , result } = data;
+        if (!result) {
+            console.log("Something went wrong while searching. Try again later")
+            return res.status(400).json({ 
+                status: "Failed",
+                message: "Something went wrong while searching. Try again later" });
+        }
+        console.log("Data", data);
+        // const auth = new google.auth.GoogleAuth({
+        //     keyFile: path.join(__dirname, "service-account.json"), // credential file name
+        //     scopes: [
+        //         process.env.GoogleApiCreateManage,
+        //         process.env.GoogleApiReadWrite,
+        //         process.env.GoogleApiPermission 
+        //     ]
+        // })
+        // const client = await auth.getClient();
+        // console.log("Service Account Email:", client.email);
 
-        // authorization check
-        client.authorize(function(err) {
-            if (err)
-            {
-                console.error("Error authorizing client:", err);
-                return res.status(401).json({ message: "Unauthorized" });
-            }
-            else
-            {
-                console.log("Client authorized successfully");
-                return res.status(200).json({ message: "Authorized successfully" });
-            }
-        })
+        // // authorization check
+        // client.authorize(function(err) {
+        //     if (err)
+        //     {
+        //         console.error("Error authorizing client:", err);
+        //         return res.status(401).json({ message: "Unauthorized" });
+        //     }
+        //     else
+        //     {
+        //         console.log("Client authorized successfully");
+        //         return res.status(200).json({ message: "Authorized successfully" });
+        //     }
+        // })
         // const sheets = google.sheets({ version: "v4", auth: client });
 
         // const googleSheetResponse = await sheets.spreadsheets.create({
