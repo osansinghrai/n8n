@@ -1,5 +1,4 @@
 require('dotenv').config();
-const n8nService = require('../service/n8n.service');
 
 const n8nController = async (req, res) => {
     try {
@@ -10,7 +9,7 @@ const n8nController = async (req, res) => {
             return res.status(400).json({ message: "Topic is required" });
         }
 
-        if (!name || !email) {
+        if (!name && !email) {
             return res.status(400).json({ message: "Either Name or Email is required to send Mail" });
         }
 
